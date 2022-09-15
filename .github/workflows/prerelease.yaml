@@ -13,14 +13,14 @@ env:
 jobs:
 
   prerelease:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     - name: Create packages and upload to GH
-      run: echo "Create and upload to GH binaries for ${{env.TAG}}"
+      run: echo "Create and upload to GH binaries for ${{ env.TAG }}"
 
   upload_artifacts:
-    if: ${{ !contains(github.event.release.tag_name, '-dev') }}
-    runs-on: ubuntu-22.04
+    if: ${{ !contains(env.TAG, '-dev') }}
+    runs-on: ubuntu-latest
     steps:
     - name: Upload artifacts
-      run: echo "Artifacts for ${{env.TAG}} uploaded"
+      run: echo "Artifacts for ${ {env.TAG }} uploaded"
