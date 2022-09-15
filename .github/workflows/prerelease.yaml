@@ -12,6 +12,13 @@ env:
 
 jobs:
 
+  check_tag:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - run: git log -1 --format="%D" ${{ env.TAG }} |cat
+
   prerelease:
     runs-on: ubuntu-latest
     steps:
