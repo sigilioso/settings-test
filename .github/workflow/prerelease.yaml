@@ -1,0 +1,26 @@
+name: Prerelease pipeline
+
+on:
+  release:
+    types:
+      - prereleased
+    tags:
+      - 'v*'
+
+env:
+  TAG: ${{ github.event.release.tag_name }}
+
+jobs:
+
+  prerelease:
+    runs_on: ubuntu-22.04
+    steps:
+    - name: Create packages and upload to GH
+      run: echo "Create and upload to GH binaries for ${{env.TAG}}"
+
+  upload_artifacts:
+    if: ${{ !contains(github.event.release.tag_name, '-dev') }}
+    runs_on: ubuntu-22.04
+    steps:
+    - name: Upload artifacts
+      run: echo "Artifacts for ${{env.TAG}} uploaded"
