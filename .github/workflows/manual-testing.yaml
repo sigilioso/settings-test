@@ -1,0 +1,37 @@
+
+on:
+  workflow_dispatch:
+    inputs:
+      f1:
+        description: f1
+        required: true
+        default: "value"
+        type: string
+      f2:
+        description: f2
+        required: true
+        default: ""
+        type: string
+
+name: testing conditions
+jobs:
+  job0:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This runs no matter what"
+  job1:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.f1 == 'value' }}
+    steps:
+      - run: echo "This runs when f1 is value"
+  job2:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.f2 == 'value' }}
+    steps:
+      - run: echo "This runs when f2 is value"
+  final:
+    if: ${{ always() }}
+    needs: [job0, job1, job2]
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "This should run after job0, job1 and job2 no matter if job1 or job2 actually got executed"
