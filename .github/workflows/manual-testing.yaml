@@ -10,7 +10,22 @@ on:
       f2:
         description: f2
         required: true
-        default: ""
+        default: "value"
+        type: string
+      fail1:
+        description: fail1
+        required: false
+        default: false
+        type: boolean
+      fail2:
+        description: fail2
+        required: false
+        default: false
+        type: boolean
+      run_final:
+        description: set to 'final' to run final
+        required: true
+        default: "final"
         type: string
 
 name: testing conditions
@@ -24,14 +39,18 @@ jobs:
     if: ${{ inputs.f1 == 'value' }}
     steps:
       - run: echo "This runs when f1 is value"
+      - run: exit 1
+        if: ${{ inputs.fail1 }}
   job2:
     runs-on: ubuntu-latest
     if: ${{ inputs.f2 == 'value' }}
     steps:
       - run: echo "This runs when f2 is value"
+      - run: exit 1
+        if: ${{ inputs.fail2 }}
   final:
-    if: ${{ always() }}
+    if: ${{ always() && !( failure() ) && inputs.run_final == 'final' }}
     needs: [job0, job1, job2]
     runs-on: ubuntu-latest
     steps:
-    - run: echo "This should run after job0, job1 and job2 no matter if job1 or job2 actually got executed"
+    - run: echo "job0 - ${{needs.job0.result}}; job1 - ${{needs.job1.result}}; job2 - ${{needs.job2.result}}"
