@@ -1,0 +1,9 @@
+on:
+  workflow_dispatch:
+
+name: Use reusable
+jobs:
+  job-use:
+    uses: sigilioso/settings-test/.github/workflows/reusable.yaml@main
+    with:
+      testing-value: "value!"

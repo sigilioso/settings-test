@@ -1,0 +1,19 @@
+name: Testing reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      testing-value:
+        description: Testing value
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  check_invoker_data:
+    name: Check invoker data
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.server_url }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}"
+      - run: echo "${{ github.event.repository.name }}"
+      - run: echo "${{ inputs.testing-value || 'default' }}"
