@@ -49,7 +49,7 @@ jobs:
       - run: exit 1
         if: ${{ inputs.fail2 }}
   final:
-    if: ${{ always() && !( failure() ) && inputs.run_final == 'final' }}
+    if: ${{ always() && failure() }}
     needs: [job0, job1, job2]
     runs-on: ubuntu-latest
     steps:

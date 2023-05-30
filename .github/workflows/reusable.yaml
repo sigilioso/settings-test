@@ -14,9 +14,6 @@ jobs:
     name: Check invoker data
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ github.server_url }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}"
-      - run: echo "${{ github.event.repository.name }}"
-      - run: echo "${{ github.event.repository.id }}"
-      - run: echo "${{ github.event.repository.url }}"
+      - run: echo "${{ github.server_url }}/${{ github.event.repository.full_name }}/actions/runs/${{ github.run_id }}"
       - run: echo "${{ toJson(github.event.repository) }}"
       - run: echo "${{ inputs.testing-value || 'default' }}"
