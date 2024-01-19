@@ -7,3 +7,4 @@ jobs:
     uses: sigilioso/settings-test/.github/workflows/reusable.yaml@main
     with:
       testing-value: "value!"
+    secrets: inherit
