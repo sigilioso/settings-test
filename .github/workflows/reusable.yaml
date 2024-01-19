@@ -8,6 +8,9 @@ on:
         required: false
         type: string
         default: ""
+    secrets:
+      TEST_SECRET:
+        required: true
 
 jobs:
   check_invoker_data:
@@ -17,3 +20,4 @@ jobs:
       - run: echo "${{ github.server_url }}/${{ github.event.repository.full_name }}/actions/runs/${{ github.run_id }}"
       - run: echo "${{ toJson(github.event.repository) }}"
       - run: echo "${{ inputs.testing-value || 'default' }}"
+      - run: echo "${{ secrets.TEST_SECRET }}"
