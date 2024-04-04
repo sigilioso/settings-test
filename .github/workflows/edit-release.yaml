@@ -1,0 +1,19 @@
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: Tag name
+        required: true
+        type: string
+
+jobs:
+  edit_release:
+    name: "Edit release"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Edit release to include (not-ready)"
+        env:
+          GH_TOKEN: "${{ github.token }}"
+        run: |
+          gh release edit ${{ inputs.tag_name }} --title "${{ inputs.tag_name }} (not ready)"
