@@ -1,0 +1,11 @@
+
+on:
+  workflow_dispatch:
+
+name: ubuntu-test
+jobs:
+  ubuntu-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apt update
+        run: sudo apt update -y
