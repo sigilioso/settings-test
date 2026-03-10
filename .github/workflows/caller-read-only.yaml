@@ -1,0 +1,11 @@
+name: Caller - Read only
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  call-reusable:
+    uses: sigilioso/settings-test/.github/workflows/reusable-permissions-read.yaml@main

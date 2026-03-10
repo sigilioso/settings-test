@@ -1,0 +1,40 @@
+name: Reusable - Read and write
+
+on:
+  workflow_call:
+
+jobs:
+  read-job:
+    name: Read-only job
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Read-only job running"
+      - run: echo "Repo default branch is ${{ github.event.repository.default_branch }}"
+
+  write-job:
+    name: Write job (issues write)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Create test label
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create "permissions-test" \
+            --repo "${{ github.repository }}" \
+            --description "Temporary label to test write permissions" \
+            --color "0075ca" \
+            --force
+      - name: Delete test label
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label delete "permissions-test" \
+            --repo "${{ github.repository }}" \
+            --yes

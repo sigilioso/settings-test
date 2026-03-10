@@ -1,0 +1,12 @@
+name: Caller - With write permissions
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  call-reusable:
+    uses: sigilioso/settings-test/.github/workflows/reusable-permissions-write.yaml@main

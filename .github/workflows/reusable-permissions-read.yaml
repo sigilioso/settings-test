@@ -1,0 +1,15 @@
+name: Reusable - Read only
+
+on:
+  workflow_call:
+
+jobs:
+  read-job:
+    name: Read-only job
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Read-only job running"
+      - run: echo "Repo default branch is ${{ github.event.repository.default_branch }}"
